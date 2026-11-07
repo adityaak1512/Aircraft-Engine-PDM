@@ -24,8 +24,18 @@ This project implements a robust Predictive Maintenance framework for aircraft e
 * **Evaluation:** Optimized for Precision and Recall to minimize false negatives.
 
 ## 📈 Key Results
-* **Regression:** Achieved a competitive RMSE, effectively tracking engine health cycles.
-* **Classification:** High F1-score in detecting "At-Risk" engines using the Confusion Matrix.
+Evaluated on the 100-engine test set (numbers from `Analysis.ipynb`):
+
+| Task | Metric | Result |
+|---|---|---|
+| Time-to-failure regression | RMSE | **35.33 cycles** |
+| Fault classification (TTF ≤ 30) | Accuracy | **90%** |
+| | At-risk engines: precision / recall / F1 | **0.89 / 0.68 / 0.77** |
+| | Healthy engines: precision / recall / F1 | 0.90 / 0.97 / 0.94 |
+
+Confusion matrix: 73 healthy and 17 at-risk engines classified correctly; 2 false alarms; **8 at-risk engines missed**.
+
+**Main limitation:** recall on at-risk engines (0.68) is the number that matters most for maintenance, since a missed failing engine is far costlier than a false alarm. Next steps to improve it: lower the decision threshold, use class weights, and add more sensor features.
 
 ## 📂 Data Sources
 The dataset simulates run-to-failure scenarios for 100 engines based on 4 anonymized sensor measurements.
